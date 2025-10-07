@@ -1,0 +1,10 @@
+<h1>Post List</h1>
+
+@for(p of posts;track p){
+    <div>
+        <h2>{{p.title}}</h2>
+        <h4>de {{p.author}}</h4>
+        <p>{{p.content}}</p>
+        <button (click)="navigateToDetails(p.id)">Details</button>
+    </div>
+}

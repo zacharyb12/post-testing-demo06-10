@@ -1,10 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 import { App } from './app';
+import { ActivatedRoute, Router } from '@angular/router';
 
 describe('App', () => {
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [App],
+      providers: [
+        {provide :Router , useValue : {navigate : jasmine.createSpy('navigate')}},
+        {provide : ActivatedRoute , useValue : {snapshot : {params : {}}}}
+      ]
     }).compileComponents();
   });
 
@@ -14,10 +20,5 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(App);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, post-testing');
-  });
+
 });
