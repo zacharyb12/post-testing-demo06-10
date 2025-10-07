@@ -33,25 +33,27 @@ describe('PostService', () => {
 
   // Test de la méthode getPosts sans erreurs
  it('should fetch posts',()=> {
-  // Mock de données pour le test
+  // Configuration :  Mock de données pour le test
   const mockPosts : Post[] =[
     { id: '1', title: 'Post 1', content: 'Content 1', author: 'Author 1' },
     { id: '2', title: 'Post 2', content: 'Content 2', author: 'Author 2' }
   ]
 
+  // Appel de la méthode getPosts
   service.getPosts().subscribe(posts => {
     // Verifie le comportement de la méthode
     expect(posts.length).toBe(2);
     expect(posts).toEqual(mockPosts);
   });
 
-  // Simulation de la requête HTTP
+  // Configuration : Simulation de la requête HTTP
   // verifie l'url de la requête
   const req = httpMock.expectOne('http://localhost:3000/posts');
-  // verifie la méthode de la requête
+
+  // Execution :  verifie la méthode de la requête
   expect(req.request.method).toBe('GET');
 
-  // fluch : envoie la reponse simulée
+  // flush : envoie la reponse simulée
   req.flush(mockPosts);
 
  });
@@ -62,7 +64,9 @@ describe('PostService', () => {
   service.getPosts().subscribe({
     next : () => fail('Expected an error, not posts'),
     error : (error) => {
+
       expect(error.status).toBe(500);
+
     }
   })
 
@@ -105,7 +109,9 @@ it('should return error',() => {
     }
   });
 const req = httpMock.expectOne('http://localhost:3000/posts/1');
+
 req.flush(null ,  {status : 404, statusText : 'Not Found'} )
+
 })
 
  // Post

@@ -1,1 +1,9 @@
-<p>post-details works!</p>
+<h1>Details</h1>
+
+@if(post){
+    
+    <h2>{{post.title}}</h2>
+    <p>{{post.content}}</p>
+    <button (click)="navigateToUpdate(post.id)">update</button>
+    <button (click)="deletePost(post.id)">Delete</button>
+}

@@ -34,6 +34,11 @@ constructor(){
   }
 
   navigateToDetails(postId: string) {
+    if(postId.includes('admin')){
+      throw new Error('Invalid post ID');
+    }
     this.router.navigate(['/post-detail', postId]);
   }
+
+  
 }

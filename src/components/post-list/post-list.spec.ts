@@ -8,8 +8,10 @@ import { Post } from '../../models/post.model';
 describe('PostList', () => {
   let component: PostList;
   let fixture: ComponentFixture<PostList>;
+  
   // permet de simuler le service
   let postServiceSpy : jasmine.SpyObj<PostService>;
+  
   // permet de simuler le routeur
   let routerSpy : jasmine.SpyObj<Router>
 
@@ -36,6 +38,8 @@ describe('PostList', () => {
     // fixture.detectChanges();
   });
 
+
+
   it('should create', () => {
     expect(component).toBeTruthy();
   });
@@ -57,11 +61,15 @@ describe('PostList', () => {
 
 });
 
-// Verification de la navigation
+// // Verification de la navigation
 it('should navigate to details', () => {
   component.navigateToDetails('42');
 
   expect(routerSpy.navigate).toHaveBeenCalledWith(['/post-detail', '42']);
+})
+
+it('should return error with admin', () => {
+expect(() => component.navigateToDetails('admin')).toThrowError('Invalid post ID')
 })
 
 
