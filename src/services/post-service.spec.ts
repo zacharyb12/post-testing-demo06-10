@@ -3,6 +3,7 @@ import { HttpClientTestingModule, HttpTestingController} from '@angular/common/h
 
 import { PostService } from './post-service';
 import { Post } from '../models/post.model';
+import { AddPost } from '../models/add-post.model';
 
 describe('PostService', () => {
   // instance du service
@@ -115,10 +116,104 @@ req.flush(null ,  {status : 404, statusText : 'Not Found'} )
 })
 
  // Post
+it('should create a post with no error', () => {
+  // Mock de données pour la valeur a ajouter
+  const input : AddPost = {
+    title : 'New Post',
+    content : 'New Content',
+    author : 'New Author'
+  }
 
- // Update
+  // Mock de données pour la réponse attendue
+  const mockResponse : Post = {
+    ...input,
+    id : '123'
+  }
 
- // Delete
+  // Appel de la méthode addPost
+  service.addPost(input).subscribe(post => {
+    // Verification du retour de la méthode
+    expect(post.title).toBe(input.title);
+    expect(post.content).toBe(input.content);
+    expect(post.author).toBe(input.author);
+    // Verification de l'id généré
+    expect(post.id).toBeDefined();
+  })
+
+// Configuration de la requête HTTP simulée
+  const req = httpMock.expectOne('http://localhost:3000/posts');
+  // Verification du verbe HTTP utilisée
+  expect(req.request.method).toBe('POST');
+
+  // Envoi de la réponse simulée
+  req.flush(mockResponse);
+  
+})
+
+
+// Update
+it('should update a post ', () => {
+  // Mock de données pour la valeur à mettre à jour
+  const updatedPost : Post = {
+    id : '1',
+    title : 'Updated Title',
+    content : 'Updated Content',
+    author : 'Author'
+  }
+
+  // Appel de la méthode updatePost
+service.updatePost(updatedPost).subscribe(post => {
+  // Verification du retour de la méthode
+  expect(post.title).toBe('Updated Title');
+  expect(post.content).toBe('Updated Content');
+  expect(post.id).toBe('1');
+  expect(post.author).toBe('Author');
+})
+
+// Configuration de la requête HTTP simulée
+const req = httpMock.expectOne('http://localhost:3000/posts/1');
+
+// Verification du verbe HTTP utilisée
+expect(req.request.method).toBe('PUT');
+
+// Envoi de la réponse simulée
+req.flush(updatedPost);
+
+})
+
+
+// Delete
+it('should delete a post', () => {
+
+  service.deletePost('1').subscribe(response => {
+    expect(response).toBeNull()
+  })
+
+  const req = httpMock.expectOne('http://localhost:3000/posts/1');
+
+  expect(req.request.method).toBe('DELETE');
+
+
+  req.flush(null);
+})
+
+
+// Delete avec erreur
+
+it('should delete a post with error', () => {
+  service.deletePost('1').subscribe({
+    next : () => fail('Expected an error, not posts'),
+    error : (error) => {
+      expect(error.status).toBe(500);
+    }
+  })
+
+    const req = httpMock.expectOne('http://localhost:3000/posts/1');
+
+  expect(req.request.method).toBe('DELETE');
+
+  req.flush(null, {status : 500, statusText : 'Server Error'});
+})
 
 
 });
