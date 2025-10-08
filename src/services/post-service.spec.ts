@@ -32,6 +32,7 @@ describe('PostService', () => {
     expect(service).toBeTruthy();
   });
 
+  
   // Test de la méthode getPosts sans erreurs
  it('should fetch posts with no error',()=> {
   // Configuration :  Mock de données pour le test
@@ -59,6 +60,7 @@ describe('PostService', () => {
 
  });
 
+
  // Test de la méthode getPosts avec erreur
  it('should fetch posts with error ',()=> {
 
@@ -75,6 +77,7 @@ describe('PostService', () => {
 
   req.flush(null, {status : 500, statusText : 'Server Error'});
  });
+
 
  // GetByID sans erreur
 it('should fetch by id with no error',() => {
@@ -101,6 +104,7 @@ it('should fetch by id with no error',() => {
 
 });
 
+
 // GetByID avec erreur
 it('should fetch by id with error',() => {
   service.getPostById('1').subscribe({
@@ -114,6 +118,7 @@ const req = httpMock.expectOne('http://localhost:3000/posts/1');
 req.flush(null ,  {status : 404, statusText : 'Not Found'} )
 
 })
+
 
  // Post
 it('should create a post with no error', () => {
@@ -199,7 +204,6 @@ it('should delete a post', () => {
 
 
 // Delete avec erreur
-
 it('should delete a post with error', () => {
   service.deletePost('1').subscribe({
     next : () => fail('Expected an error, not posts'),
@@ -214,6 +218,5 @@ it('should delete a post with error', () => {
 
   req.flush(null, {status : 500, statusText : 'Server Error'});
 })
-
 
 });
