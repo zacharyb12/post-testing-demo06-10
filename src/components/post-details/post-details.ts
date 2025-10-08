@@ -9,6 +9,7 @@ import { PostService } from '../../services/post-service';
   templateUrl: './post-details.html',
   styleUrl: './post-details.css'
 })
+
 export class PostDetails {
 
 post : Post | undefined = undefined;
@@ -32,7 +33,7 @@ this.postService.getPostById(this.id).subscribe({
     this.post = response;
   },
   error : (err) => {
-    console.log('Error fetching post by id:', err);
+    console.error('Error fetching post by id:',err);
     
   }})
   }
