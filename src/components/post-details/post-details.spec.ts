@@ -21,7 +21,6 @@ describe('PostDetails', () => {
       author : 'John Doe'
     };
 
-
   beforeEach(async () => {
     // Configuration des espions
     serviceSpy = jasmine.createSpyObj( 'PostService' , ['getPostById', 'deletePost']);
@@ -57,8 +56,6 @@ describe('PostDetails', () => {
     fixture = TestBed.createComponent(PostDetails);
     component = fixture.componentInstance;
   });
-
-  afterEach(() => {})
 
   it('should create', () => {
     expect(component).toBeTruthy();

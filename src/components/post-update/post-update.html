@@ -1,1 +1,19 @@
-<p>post-update works!</p>
+<h1>Update Post</h1>
+
+@if(this.postToUpdate){
+    <form [formGroup]="updateForm" (ngSubmit)="updatePost()">
+        <div>
+            <label for="">Title</label>
+            <br>
+            <input type="text" formControlName="title">
+        </div>
+
+        <div>
+            <label for="">Content</label>
+            <br>
+            <input type="text" formControlName="content">
+        </div>
+        <button type="submit">Update</button>
+        <button (click)="deletePost()">Delete</button>
+    </form>
+}

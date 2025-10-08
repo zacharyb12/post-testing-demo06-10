@@ -32,7 +32,7 @@ describe('PostService', () => {
   });
 
   // Test de la méthode getPosts sans erreurs
- it('should fetch posts',()=> {
+ it('should fetch posts with no error',()=> {
   // Configuration :  Mock de données pour le test
   const mockPosts : Post[] =[
     { id: '1', title: 'Post 1', content: 'Content 1', author: 'Author 1' },
@@ -59,7 +59,7 @@ describe('PostService', () => {
  });
 
  // Test de la méthode getPosts avec erreur
- it('should return error',()=> {
+ it('should fetch posts with error ',()=> {
 
   service.getPosts().subscribe({
     next : () => fail('Expected an error, not posts'),
@@ -76,7 +76,7 @@ describe('PostService', () => {
  });
 
  // GetByID sans erreur
-it('should fetch by id ',() => {
+it('should fetch by id with no error',() => {
   // Mock de données pour le test
   // Arrange
   const mockPost : Post = 
@@ -101,7 +101,7 @@ it('should fetch by id ',() => {
 });
 
 // GetByID avec erreur
-it('should return error',() => {
+it('should fetch by id with error',() => {
   service.getPostById('1').subscribe({
     next : () => fail('Expected an error, not posts'),
     error : (error) => {

@@ -1,11 +1,12 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { Post } from '../../models/post.model';
 import { PostService } from '../../services/post-service';
 import { Router } from '@angular/router';
+import { PostAdd } from "../post-add/post-add";
 
 @Component({
   selector: 'app-post-list',
-  imports: [],
+  imports: [PostAdd],
   templateUrl: './post-list.html',
   styleUrl: './post-list.css'
 })
